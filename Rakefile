@@ -1,12 +1,16 @@
-# -*- ruby -*-
+##### KAW: this is all a mess and completely broken
 
-require 'rubygems'
-require 'hoe'
 
-Hoe.spec 'startat' do |p|
-  # self.rubyforge_name = 'startatx' # if different than 'startat'
-  p.developer('Keith Watson', 'ikawnoclast@interocitry.com')
-  p.remote_rdoc_dir = '' # Release to root
+#!/usr/bin/env rake
+require "bundler/gem_tasks"
+
+$LOAD_PATH.unshift File.expand_path("../lib", __FILE__)
+require "bundler/version"
+ 
+task :build do
+  system "gem build bundler.gemspec"
 end
-
-# vim: syntax=ruby
+ 
+task :release => :build do
+  system "gem push bundler-#{Bunder::VERSION}"
+end
